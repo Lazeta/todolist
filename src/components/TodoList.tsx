@@ -19,9 +19,7 @@ type PropsType = {
 export function TodoList(props: PropsType) {
   const [newTaskTitle, setNewTaskTitle] = useState("")
 
-  const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTaskTitle(e.currentTarget.value)
-  }
+  const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTaskTitle(e.currentTarget.value)
   const onKeyDownHandler = (e: KeyboardEvent) => {
     if (e.keyCode === 13) {
       props.addTask(newTaskTitle);
@@ -43,18 +41,20 @@ export function TodoList(props: PropsType) {
         <input value={newTaskTitle} onChange={onNewTitleChangeHandler}
           onKeyDown={onKeyDownHandler}
           placeholder="enter text" />
-        <button onClick={addTask}
-          className='pl-2 pr-2'> + </button>
+        <button onClick={addTask} className='pl-2 pr-2'> + </button>
       </div>
 
       <ul className='text-black my-5'>
         {
-          props.tasks.map(t =>
-            <li key={t.id}>
-              <input type="checkbox" checked={t.isDone} />
-              <span> {t.title}</span>
-              <button onClick={() => { props.removeTask(t.id) }} className=" border-gray-300 mx-5 ">x</button>
-            </li>)
+          props.tasks.map(t => {
+            const onRemoveHandler = () => props.removeTask(t.id)
+
+            return <li key={t.id}>
+            <input type="checkbox" checked={t.isDone} />
+            <span> {t.title}</span>
+            <button onClick={onRemoveHandler} className=" border-gray-300 mx-5 ">x</button>
+          </li>
+          })
         }
       </ul>
 
