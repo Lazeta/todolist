@@ -1,0 +1,7 @@
+button {
+  @apply border-solid border-2 border-sky-500 rounded px-2;
+}
+  
+button:hover {
+  @apply border-sky-700 opacity-80;
+}

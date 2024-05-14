@@ -9,34 +9,34 @@ export type TaskType = {
 type PropsType = {
   title: string
   tasks: Array<TaskType>
-  removeTask: Function
-  changeFilter(value: FilterValuesType): void
+  removeTask: (id: number) => void
+  changeFilter: (value: FilterValuesType) => void
 }
 
 
 export function TodoList(props: PropsType) {
     return (
       <div className="font-sans px-5">
-        <h3 className="text-3xl">{props.title}</h3>
+        <h3 className="text-3xl m-3">{props.title}</h3>
         <div>
-          <input className='border-solid border-2 border-sky-500 rounded' type="text" placeholder="text"/>
-          <button className='border-solid border-2 border-sky-500 rounded pl-2 pr-2'> + </button>
+          <input type="text" placeholder="text"/>
+          <button className='pl-2 pr-2'> + </button>
         </div>
 
-        <ul className='text-black my-3'>
+        <ul className='text-black my-5'>
           {
             props.tasks.map( t => 
-            <li className=""><input type="checkbox" checked={t.isDone}/>
+            <li><input type="checkbox" checked={t.isDone}/>
               <span> {t.title}</span>
-              <button onClick={() => { props.removeTask(t.id) }} className="border-solid border-2 border-sky-200 rounded px-2 mx-3 ">x</button>
+              <button onClick={() => { props.removeTask(t.id) }} className=" border-gray-300 mx-5 ">x</button>
             </li> )
           }
         </ul>
 
         <div className="space-x-2">
-          <button onClick={() => { props.changeFilter('all') }} className="border-solid border-2 border-sky-500 rounded px-2">All </button>
-          <button onClick={() => { props.changeFilter('active') }} className="border-solid border-2 border-sky-500 rounded px-2">Active </button>
-          <button onClick={() => { props.changeFilter('complited') }} className="border-solid border-2 border-sky-500 rounded px-2">Completed </button>
+          <button onClick={() => { props.changeFilter('all') }}>All </button>
+          <button onClick={() => { props.changeFilter('active') }}>Active </button>
+          <button onClick={() => { props.changeFilter('complited') }}>Completed </button>
         </div>
       </div>
     );
