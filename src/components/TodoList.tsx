@@ -1,4 +1,4 @@
-import React from "react"
+import { FilterValuesType } from "../App"
 
 export type TaskType = {
   id: number
@@ -10,10 +10,11 @@ type PropsType = {
   title: string
   tasks: Array<TaskType>
   removeTask: Function
+  changeFilter(value: FilterValuesType): void
 }
 
 
-export default function TodoList(props: PropsType) {
+export function TodoList(props: PropsType) {
     return (
       <div className="font-sans px-5">
         <h3 className="text-3xl">{props.title}</h3>
@@ -33,9 +34,9 @@ export default function TodoList(props: PropsType) {
         </ul>
 
         <div className="space-x-2">
-          <button className="border-solid border-2 border-sky-500 rounded px-2">All </button>
-          <button className="border-solid border-2 border-sky-500 rounded px-2">Active </button>
-          <button className="border-solid border-2 border-sky-500 rounded px-2">Completed </button>
+          <button onClick={() => { props.changeFilter('all') }} className="border-solid border-2 border-sky-500 rounded px-2">All </button>
+          <button onClick={() => { props.changeFilter('active') }} className="border-solid border-2 border-sky-500 rounded px-2">Active </button>
+          <button onClick={() => { props.changeFilter('complited') }} className="border-solid border-2 border-sky-500 rounded px-2">Completed </button>
         </div>
       </div>
     );
