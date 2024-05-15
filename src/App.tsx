@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TaskType, TodoList } from "./components/TodoList";
+import { TodoList } from "./components/TodoList";
 import { v1 } from "uuid";
 
 export type FilterValuesType = "all" | "active" | "complited";
@@ -39,6 +39,12 @@ function App() {
     tasksForTodoList = tasks.filter(t => t.isDone === false)
   }
 
+  function changeStatus(taskId: string, isDone: boolean) {
+    let task = tasks.find( t => t.id === taskId );
+    if (task) { task.isDone = isDone }
+    setTasks([ ...tasks])
+  }
+
   return (
     <div className="flex justify-center items-center h-screen">
       <TodoList title={"What to learn"} 
@@ -46,19 +52,10 @@ function App() {
       removeTask={removeTask}
       changeFilter={changeFilter}
       addTask={addTask}
+      changeTaskStatus={changeStatus}
       />
-      {/* <TodoList title={"What we done!"} tasks={tasks2}/> */}
     </div>
   );
 }
 
 export default App;
-
-
-// [
-//   { id: 1, title: "Webpack", isDone: true },
-//   { id: 2, title: "TS", isDone: true},
-//   { id: 3, title: "React", isDone: false},
-//   { id: 4, title: "Redax", isDone: false},
-//   { id: 5, title: "SCSS", isDone: true},
-// ];
