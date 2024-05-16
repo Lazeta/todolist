@@ -40,7 +40,7 @@ export function TodoList(props: PropsType) {
   }
   const onAllClickHandler = () => props.changeFilter('all')
   const onActiveClickHandler = () => props.changeFilter('active')
-  const onComplitedClickHandler = () => props.changeFilter('complited')
+  const oncompletedClickHandler = () => props.changeFilter('completed')
 
 
   return (
@@ -78,7 +78,7 @@ export function TodoList(props: PropsType) {
       <div className="space-x-2">
         <button className={props.filter === "all" ? "active-filter" : ""} onClick={onAllClickHandler}>All </button>
         <button className={props.filter === "active" ? "active-filter" : ""} onClick={onActiveClickHandler}>Active </button>
-        <button className={props.filter === "complited" ? "active-filter" : ""} onClick={onComplitedClickHandler}>Complited </button>
+        <button className={props.filter === "completed" ? "active-filter" : ""} onClick={oncompletedClickHandler}>completed </button>
       </div>
     </div>
   );
