@@ -11,38 +11,41 @@ type PropsType = {
   id: string
   title: string
   tasks: Array<TaskType>
-  removeTask: (id: string) => void
+  removeTask: (taskId: string, todolistId: string) => void
   changeFilter: (value: FilterValuesType, todolistId: string) => void
-  addTask: (title: string) => void
-  changeTaskStatus: (taskId: string, isDone: boolean) => void
+  addTask: (title: string, todolistId: string) => void
+  changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
   filter: FilterValuesType
 }
 
+export type TaskObjType = {
+  [key: string]: Array<TaskType>
+}
 
 export function TodoList(props: PropsType) {
   const [title, setTitle] = useState("")
   const [error, setError] = useState<string | null>(null)
 
-  const onNewtitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
-  const onKeyDownHandler = (e: KeyboardEvent) => {
-    setError(null)
-    if (e.keyCode === 13) {
-      props.addTask(title);
-      setTitle('')
-    }
-  }
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => 
+    setTitle(e.currentTarget.value)
+
   const addTask = () => {
     if(title.trim() !== "") {
-      props.addTask(title.trim())
+      props.addTask(title.trim(), props.id)
       setTitle('')
     } else {
       setError("Title is requared")
     }
   }
+
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    setError(null);
+    if (e.charCode === 13) addTask();
+  }
+
   const onAllClickHandler = () => props.changeFilter('all', props.id)
   const onActiveClickHandler = () => props.changeFilter('active', props.id)
   const oncompletedClickHandler = () => props.changeFilter('completed', props.id)
-
 
   return (
     <div className="font-sans px-5">
@@ -50,8 +53,8 @@ export function TodoList(props: PropsType) {
         {props.title}
       </h3>
       <div>
-        <input value={title} onChange={onNewtitleChangeHandler}
-          onKeyDown={onKeyDownHandler}
+        <input value={title} onChange={onChangeHandler}
+          onKeyDown={onKeyPressHandler}
           placeholder="enter text" 
           className={error ? "error" : ""}
           />
@@ -62,9 +65,9 @@ export function TodoList(props: PropsType) {
       <ul className='text-black my-5'>
         {
           props.tasks.map(t => {
-            const onRemoveHandler = () => props.removeTask(t.id) 
+            const onRemoveHandler = () => props.removeTask(t.id, props.id) 
             const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-              props.changeTaskStatus(t.id, e.currentTarget.checked);
+              props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
             }
 
             return <li key={t.id} className={t.isDone ? "is-done" : ""}>
