@@ -25,16 +25,12 @@ export function AddItemForm(props: AddItemFormPropsType) {
   };
 
   return <div>
-    <input
+    <input className={error ? "error" : ""}
       value={title}
       onChange={onChangeHandler}
       onKeyDown={onKeyPressHandler}
-      placeholder="enter text"
-      className={error ? "error" : ""} />
-    <button onClick={addItem} className="pl-2 pr-2">
-      {" "}
-      +{" "}
-    </button>
+     />
+    <button className="pl-2 pr-2" onClick={addItem}>+</button>
     {error && <div className="error-message">{error}</div>}
   </div>;
 }
