@@ -79,6 +79,8 @@ function App() {
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <input /> <button>x</button>
+
       {todolists.map((tl) => {
         let tasksForTodoList = tasksObj[tl.id];
         if (tl.filter === "completed") {

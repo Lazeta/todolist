@@ -1,9 +1,13 @@
 button {
-  @apply border-solid border-2 border-sky-500 rounded px-2;
+  @apply border-solid border-2 border-sky-500 rounded-sm px-2;
 }
   
 button:hover {
   @apply border-sky-700 opacity-80;
+}
+
+input {
+  @apply border-solid border-2 border-gray-700 rounded-md;
 }
 
 .error {
