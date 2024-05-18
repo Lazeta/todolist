@@ -1,16 +1,16 @@
-button {
+/* button {
   @apply border-solid border-2 border-sky-500 rounded-sm px-2;
 }
   
 button:hover {
   @apply border-sky-700 opacity-80;
-}
+} */
 
-input {
+/* input {
   @apply border-solid border-2 border-gray-700 rounded-md;
-}
+} */
 
-.error {
+/* .error {
   border: red 1px solid;
 }
 .error-message {
@@ -18,9 +18,9 @@ input {
 }
 
 .active-filter {
-  background-color: aquamarine;
-}
+  background-color: aquamarine; */
+/* } */
 
 .is-done {
-  opacity: 0.5;
+  opacity: 0.6;
 }
