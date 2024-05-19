@@ -1,35 +1,35 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react"
-import { IconButton, TextField } from "@mui/material";
-import { ControlPoint } from "@mui/icons-material";
+import { IconButton, TextField } from "@mui/material"
+import { ControlPoint } from "@mui/icons-material"
 
 type AddItemFormPropsType = {
   addItem: (title: string) => void
 }
 
 export function AddItemForm(props: AddItemFormPropsType) {
-  const [title, setTitle] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [title, setTitle] = useState("")
+  const [error, setError] = useState<string | null>(null)
 
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value);
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null);
-    if (e.keyCode === 13) addItem();
+    setError(null)
+    if (e.keyCode === 13) addItem()
   };
 
   const addItem = () => {
     if (title.trim() !== "") {
-      props.addItem(title.trim());
-      setTitle("");
+      props.addItem(title.trim())
+      setTitle("")
     } else {
-      setError("Title is requared");
+      setError("Title is requared")
     }
   };
 
   return <div>
     <TextField
       variant={'standard'}
-      label={''}
+      label={'Type value'}
       value={title}
       onChange={onChangeHandler}
       onKeyDown={onKeyPressHandler}
