@@ -6,13 +6,19 @@ export type RemoveTaskActionType = {
     taskId: string
     todolistId: string
 }
-export type Action2Type = {
-    // taskId: string
-    type: '2',
+export type AddTaskActionType = {
+    type: 'ADD-TASK',
     title: string
+    todolistId: string
+}
+export type ChangeTaskStatusActionsType = {
+    type: 'CHANGE-TASK-STATUS',
+    taskId: string
+    isDone: boolean
+    todolistId: string
 }
 
-type ActionsType = RemoveTaskActionType | Action2Type;
+type ActionsType = RemoveTaskActionType | AddTaskActionType | ChangeTaskStatusActionsType;
 
 export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
     switch (action.type) {
@@ -23,8 +29,13 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
             stateCopy[action.todolistId] = filteredTasks;
             return stateCopy 
         }
-        case '2': {
-            return {...state}
+        case 'ADD-TASK': {
+            const stateCopy = {...state}
+            const tasks = stateCopy[action.todolistId]
+            const newTask = { id: v1(), title: action.title, isDone: false}
+            const newTasks = [newTask, ...tasks]
+            stateCopy[action.todolistId] = newTasks;
+            return stateCopy
         }
 
         default:
@@ -36,13 +47,13 @@ export const removeTaskAC = (taskId: string, todolistId: string): RemoveTaskActi
     return { type: 'REMOVE-TASK', todolistId, taskId }
 }
 
-export const addTaskAC = (title: string, todolistId: string ): Action2Type => {
-    return { type: '2', title: title }
+export const addTaskAC = (title: string, todolistId: string ): AddTaskActionType => {
+    return { type: 'ADD-TASK', title: title, todolistId }
 }
 
-// export const action1AC = (todolistId: string): ActionsType => {
-//     return { type: '1', id: todolistId }
-// }
+export const changeTaskStatus = (taskId: string, todolistId: string, isDone: boolean): ChangeTaskStatusActionsType => {
+    return { type: 'CHANGE-TASK-STATUS', isDone, taskId, todolistId }
+}
 
 
 // export const action3AC = (id: string, title: string): Action3Type => {

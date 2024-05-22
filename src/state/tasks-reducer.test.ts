@@ -1,24 +1,24 @@
 import { v1 } from "uuid"
 import { TasksStateType } from "../App"
-import { addTaskAC, removeTaskAC, tasksReducer } from "./tasks-reducer"
+import { addTaskAC, changeTaskStatus, removeTaskAC, tasksReducer } from "./tasks-reducer"
 
 test('correct task should be deleted from correct array', () => {
     const startState: TasksStateType = {
         todolistId1: [
-            { id: v1(), title: "HTML", isDone: true },
-            { id: v1(), title: "CSS", isDone: true },
-            { id: v1(), title: "SASS", isDone: true },
-            { id: v1(), title: "JS", isDone: true },
-            { id: v1(), title: "React", isDone: false },
+            { id: '1', title: "HTML", isDone: false },
+            { id: '2', title: "CSS", isDone: true },
+            { id: '3', title: "SASS", isDone: false },
+            { id: '4', title: "JS", isDone: true },
+            { id: '5', title: "React", isDone: false },
         ],
         todolistId2: [
-            { id: v1(), title: "Redax", isDone: false },
-            { id: v1(), title: "MobX", isDone: false },
-            { id: v1(), title: "BEM", isDone: true },
-            { id: v1(), title: "Vite", isDone: true },
-            { id: v1(), title: "SSH", isDone: false },
-            { id: v1(), title: "RMR", isDone: false },
-            { id: v1(), title: "Pattern", isDone: false },
+            { id: '1', title: "Redax", isDone: false },
+            { id: '2', title: "MobX", isDone: true },
+            { id: '3', title: "BEM", isDone: false },
+            { id: '4', title: "Vite", isDone: true },
+            { id: '5', title: "SSH", isDone: false },
+            { id: '6', title: "RMR", isDone: false },
+            { id: '7', title: "Pattern", isDone: false },
         ]
     }
 
@@ -35,20 +35,20 @@ test('correct task should be deleted from correct array', () => {
 test('correct task should be deleted from correct array', () => {
     const startState: TasksStateType = {
         todolistId1: [
-            { id: v1(), title: "HTML", isDone: true },
-            { id: v1(), title: "CSS", isDone: true },
-            { id: v1(), title: "SASS", isDone: true },
-            { id: v1(), title: "JS", isDone: true },
-            { id: v1(), title: "React", isDone: false },
+            { id: '1', title: "HTML", isDone: false },
+            { id: '2', title: "CSS", isDone: true },
+            { id: '3', title: "SASS", isDone: false },
+            { id: '4', title: "JS", isDone: true },
+            { id: '5', title: "React", isDone: false },
         ],
         todolistId2: [
-            { id: v1(), title: "Redax", isDone: false },
-            { id: v1(), title: "MobX", isDone: false },
-            { id: v1(), title: "BEM", isDone: true },
-            { id: v1(), title: "Vite", isDone: true },
-            { id: v1(), title: "SSH", isDone: false },
-            { id: v1(), title: "RMR", isDone: false },
-            { id: v1(), title: "Pattern", isDone: false },
+            { id: '1', title: "Redax", isDone: false },
+            { id: '2', title: "MobX", isDone: true },
+            { id: '3', title: "BEM", isDone: false },
+            { id: '4', title: "Vite", isDone: true },
+            { id: '5', title: "SSH", isDone: false },
+            { id: '6', title: "RMR", isDone: false },
+            { id: '7', title: "Pattern", isDone: false },
         ]
     }
 
@@ -60,4 +60,31 @@ test('correct task should be deleted from correct array', () => {
     expect(endState["todolistId2"][0].id).toBeDefined()
     expect(endState["todolistId2"][0].title).toBe("juce")
     expect(endState["todolistId2"][0].isDone).toBe(false)
+})
+
+test('status of specified task should be changed', () => {
+    const startState: TasksStateType = {
+        todolistId1: [
+            { id: '1', title: "HTML", isDone: false },
+            { id: '2', title: "CSS", isDone: true },
+            { id: '3', title: "SASS", isDone: false },
+            { id: '4', title: "JS", isDone: true },
+            { id: '5', title: "React", isDone: false },
+        ],
+        todolistId2: [
+            { id: '1', title: "Redax", isDone: false },
+            { id: '2', title: "MobX", isDone: true },
+            { id: '3', title: "BEM", isDone: false },
+            { id: '4', title: "Vite", isDone: true },
+            { id: '5', title: "SSH", isDone: false },
+            { id: '6', title: "RMR", isDone: false },
+            { id: '7', title: "Pattern", isDone: false },
+        ]
+    }
+
+    const action = changeTaskStatus("2", false, "todolistId2")
+    const endState = tasksReducer(startState, action)
+
+    expect(endState['todolistId2'][1].isDone).toBeFalsy();
+    expect(endState['todolistId1'][1].isDone).toBeTruthy();
 })
