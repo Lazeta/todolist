@@ -51,7 +51,7 @@ function App() {
   }
   function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
     let tasks = tasksObj[todolistId]
-    let task = tasks.find((t) => t.id === id)
+    let task = tasks.find(t => t.id === id)
     if (task) {
       task.title = newTitle
       setTasks({ ...tasksObj })
