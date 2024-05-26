@@ -88,7 +88,7 @@ function App() {
       { id: v1(), title: "React", isDone: false },
     ],
     [todolistId2]: [
-      { id: v1(), title: "Redax", isDone: false },
+      { id: v1(), title: "Redux", isDone: false },
       { id: v1(), title: "MobX", isDone: false },
       { id: v1(), title: "BEM", isDone: true },
       { id: v1(), title: "Vite", isDone: true },
