@@ -1,43 +1,38 @@
-import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import React from "react";
 
-export default function AccordionExpandDefault() {
-  return (
-    <div>
-      <Accordion defaultExpanded>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1-content"
-          id="panel1-header"
-        >
-          <Typography>Expanded by default</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2-content"
-          id="panel2-header"
-        >
-          <Typography>Header</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
-  );
+type AccordionPropsType = {
+  titleValue: string;
+  collapsed: boolean;
+  onChange: () => void;
 }
+
+function Accordion(props: AccordionPropsType) {
+  console.log('Accordion rendering')
+  return <div>
+    <AccordionTitle title={props.titleValue} onChange={props.onChange}/>
+    { !props.collapsed && <AccordionBody/> }
+  </div>
+}
+
+type AccordionTitlePropsType = {
+  title: string;
+  onChange: () => void;
+}
+
+function AccordionTitle(props: AccordionTitlePropsType) { 
+  console.log('AccordionTitle rendering')
+  return (
+    <h3 onClick={props.onChange}>-- {props.title} --</h3>
+  )
+}
+
+function AccordionBody() {
+  console.log('AccordionBody rendering')
+  return <ul>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </ul>
+}
+
+export default Accordion;
